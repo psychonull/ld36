@@ -1,5 +1,6 @@
 
 const PAD = 20;
+let terminal;
 
 const getWSize = () => {
   return {
@@ -20,18 +21,17 @@ const init = () => {
       }
     }
 
-    $(window).resize(function() {
-      let wSize = getWSize();
-      term.resize(wSize.width, wSize.height);
-    });
   }, Object.assign(wSize, {
     greetings: '///// LD36 ///// ',
     name: 'ld36',
-    //height: $(window).height() - PAD * 2,
-    //width: $(window).width() - PAD * 2,
-    prompt: '$ '
+    prompt: '$ ',
+    onInit: _terminal => terminal = _terminal
   }));
 
+  $(window).resize(function() {
+    let wSize = getWSize();
+    terminal.resize(wSize.width, wSize.height);
+  });
 
 };
 
