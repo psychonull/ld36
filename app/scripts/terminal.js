@@ -55,7 +55,7 @@ export default class Terminal extends EventEmitter {
   }
 
   onInit(terminal) {
-    this.terminal = terminal;
+    this.terminal = terminal; 
 
     $(window).resize(() => {
       let wSize = getWSize();
