@@ -4,7 +4,8 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "modernizr": "~2.8.1",
-    "jquery.terminal": "^0.10.12"
+    "jquery.terminal": "^0.10.12",
+    "normalize-scss": "^3.0.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
