@@ -2,6 +2,7 @@
 const PAD = 20;
 let terminal;
 const version = require('../../package.json').version;
+import gather from './programs/gather';
 
 const getWSize = () => {
   return {
@@ -16,9 +17,15 @@ const init = () => {
   $('#term').terminal(function(command, term) {
 
     if (command !== '') {
-      var result = window.eval(command);
-      if (result != undefined) {
-        term.echo(String(result));
+      if(command === 'gather'){
+        term.push(...gather);
+      }
+      else {
+
+        var result = window.eval(command);
+        if (result != undefined) {
+          term.echo(String(result));
+        }
       }
     }
 
