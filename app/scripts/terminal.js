@@ -2,7 +2,6 @@ const version = require('../../package.json').version;
 import { welcome } from './graphics';
 
 import store from './store';
-//import testActs from './actions/test';
 
 import EventEmitter from 'tiny-emitter';
 import programs from './programs';
@@ -64,8 +63,10 @@ export default class Terminal extends EventEmitter {
     });
 
     store.subscribe(() => {
-      let state = store.getState();
-      terminal.echo(`> counting: ${state.test.count}`);
+      let slaves = store.getState().slaves;
+      if (slaves.count === 0){
+        terminal.echo('You have NO Slaves so ... GAME OVER');
+      }
     });
 
     setTimeout(() => this.emit('ready'), 1);

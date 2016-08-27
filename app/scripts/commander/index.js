@@ -1,7 +1,11 @@
-import inc from './inc';
+import born from './born';
+import kill from './kill';
+import stats from './stats';
 
 const commands = {
-  inc
+  born,
+  kill,
+  stats
 };
 
 exports.run = function(command, term) {
@@ -9,7 +13,7 @@ exports.run = function(command, term) {
 
   if (cmd === 'help'){
     if (args.length === 0){
-      term.echo('HELP info');
+      term.echo(Object.keys(commands).join(' | '));
       return;
     }
 
