@@ -1,5 +1,6 @@
 
 `npm i`
+`bower install`
 
 Build and open hot reload
 `npm start`
