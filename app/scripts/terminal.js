@@ -8,7 +8,7 @@ import programs from './programs';
 import commander from './commander';
 
 export default class Terminal extends EventEmitter {
-  static pad = 20;
+  static PAD = 20;
 
   terminal = null;
 
@@ -55,10 +55,10 @@ export default class Terminal extends EventEmitter {
   }
 
   onInit(terminal) {
-    this.terminal = terminal; 
+    this.terminal = terminal;
 
     $(window).resize(() => {
-      let wSize = getWSize();
+      let wSize = Terminal.getWSize();
       this.terminal.resize(wSize.width, wSize.height);
     });
 

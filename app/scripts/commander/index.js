@@ -1,11 +1,15 @@
 import born from './born';
 import kill from './kill';
 import stats from './stats';
+import addresource from './addresource';
+import delresource from './delresource';
 
 const commands = {
   born,
   kill,
-  stats
+  stats,
+  addresource,
+  delresource
 };
 
 exports.run = function(command, term) {
@@ -13,7 +17,9 @@ exports.run = function(command, term) {
 
   if (cmd === 'help'){
     if (args.length === 0){
-      term.echo(Object.keys(commands).join(' | '));
+      Object.keys(commands).forEach( c => {
+        term.echo(`  ${c}: ${commands[c].help}`);
+      });
       return;
     }
 
