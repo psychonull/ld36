@@ -1,4 +1,7 @@
 
+import store from './store';
+import testActs from './actions/test';
+
 const PAD = 20;
 let terminal;
 const version = require('../../package.json').version;
@@ -16,10 +19,11 @@ const init = () => {
   $('#term').terminal(function(command, term) {
 
     if (command !== '') {
-      var result = window.eval(command);
-      if (result != undefined) {
-        term.echo(String(result));
+
+      if (command.indexOf('inc ')>-1){
+        testActs.increment(parseInt(command.split(' ')[1], 10) || 0);
       }
+
     }
 
   }, Object.assign(wSize, {
@@ -35,7 +39,14 @@ nnn/  nnn|
     `,
     name: 'ld36',
     prompt: '$ ',
-    onInit: _terminal => terminal = _terminal
+    onInit: _terminal => {
+      terminal = _terminal;
+
+      store.subscribe(() => {
+        let state = store.getState();
+        terminal.echo(`> counting: ${state.test.count}`);
+      });
+    }
   }));
 
   $(window).resize(function() {
