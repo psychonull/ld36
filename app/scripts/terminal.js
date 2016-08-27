@@ -1,6 +1,7 @@
 
 const PAD = 20;
 let terminal;
+const version = require('../../package.json').version;
 
 const getWSize = () => {
   return {
@@ -22,7 +23,16 @@ const init = () => {
     }
 
   }, Object.assign(wSize, {
-    greetings: '///// LD36 ///// ',
+    greetings: `
+  ___
+ /III\\
+/{= =}\\__
+|_\\-/_|  \\        |\\   |  | |    |   | \\ /
+jjs  |-| |-|{ |   | \\  |  | |    |   |  X
+/-_--_'-nn/       |   \\|  | |___ |___| / \\ ${version}
+nnn/  nnn|
+==================================================
+    `,
     name: 'ld36',
     prompt: '$ ',
     onInit: _terminal => terminal = _terminal
