@@ -2,9 +2,11 @@ const version = require('../../package.json').version;
 import { welcome } from './graphics';
 
 import store from './store';
-import testActs from './actions/test';
+//import testActs from './actions/test';
 
 import EventEmitter from 'tiny-emitter';
+import programs from './programs';
+import commander from './commander';
 
 export default class Terminal extends EventEmitter {
   static pad = 20;
@@ -27,7 +29,7 @@ export default class Terminal extends EventEmitter {
     let wSize = Terminal.getWSize();
 
     $(`#${id}`).terminal(::this.onCommand, Object.assign(wSize, {
-      greetings: welcome(version),
+      greetings: welcome({ version }),
       name: 'ld36',
       prompt: '$ ',
       onInit: ::this.onInit
@@ -38,8 +40,15 @@ export default class Terminal extends EventEmitter {
     this.emit('before:command', command);
 
     if (command !== '') {
-      if (command.indexOf('inc ')>-1){
-        testActs.increment(parseInt(command.split(' ')[1], 10) || 0);
+      if (programs.hasOwnProperty(command)) {
+        this.emit('before:run:program', command);
+        term.push(...programs[command]);
+        this.emit('after:run:program', command);
+      }
+      else {
+        this.emit('before:run:command', command);
+        commander.run(command, term);
+        this.emit('after:run:command', command);
       }
     }
 
