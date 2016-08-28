@@ -5,7 +5,7 @@ import store from './store';
 
 import EventEmitter from 'tiny-emitter';
 import programs from './programs';
-import commander from './commander';
+import commander from './commands';
 
 export default class Terminal extends EventEmitter {
   static PAD = 20;
