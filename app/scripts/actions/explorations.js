@@ -1,20 +1,6 @@
 import { bindActionCreators } from 'redux';
 import store from '../store';
 
-// const receive = amount => {
-//   return {
-//     type: 'SLAVES_RECEIVE',
-//     amount
-//   };
-// }
-//
-// const die = amount => {
-//   return {
-//     type: 'SLAVES_DIE',
-//     amount
-//   };
-// }
-
 // Example of Async Actions
 //const incrementAsync = value => {
 //  return (dispatch) => {
@@ -24,7 +10,23 @@ import store from '../store';
 //  }
 //}
 
+const send = (terrain, amount, time) => {
+  return {
+    type: 'EXPLORATIONS_SEND',
+    terrain,
+    amount,
+    time
+  };
+};
+
+const finish = (exploration) => {
+  return {
+    type: 'EXPLORATIONS_FINISH',
+    exploration
+  };
+};
+
 export default bindActionCreators({
-  // receive,
-  // die
+  send,
+  finish
 }, store.dispatch);

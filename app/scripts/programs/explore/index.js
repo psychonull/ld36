@@ -2,6 +2,7 @@ import commander from '../../commander';
 import current from './current.js';
 import recent from './recent.js';
 import available from './available.js';
+import send from './send.js';
 
 import store from '../../store';
 import onStoreChange from './onStoreChange';
@@ -9,7 +10,8 @@ import onStoreChange from './onStoreChange';
 const runCmd = commander({
   current,
   recent,
-  available
+  available,
+  send
 });
 
 store.subscribe(() => onStoreChange(store));

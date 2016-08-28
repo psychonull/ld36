@@ -21,6 +21,20 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-
+  switch(action.type) {
+    case 'EXPLORATIONS_SEND': {
+      let current = [...state.current, {
+        terrain: action.terrain,
+        sentAt: action.time
+      }];
+      let terrains = state.terrains.filter((t) => t !== action.terrain);
+      return {...state, current, terrains};
+    }
+    case 'EXPLORATIONS_FINISH': {
+      let recent = [...state.recent, action.exploration];
+      let current = state.current.filter((e) => e !== action.exploration);
+      return {...state, recent, current};
+    }
+  }
   return state;
 }
