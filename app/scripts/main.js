@@ -12,18 +12,39 @@ $(function() {
   let termStats = new TerminalStats('term-stats');
   let termNotis = new TerminalLogs('term-notis');
 
+  function resizeEffect(){
+    let midPoint = term.getWSize().width + 40;
+
+    $('.crt-term').css({
+      width: midPoint,
+      top: 0,
+      left: 0,
+      bottom: 0
+    });
+
+    $('.crt-term-right').css({
+      left: midPoint,
+      top: 0,
+      right: 0,
+      bottom: 0
+    });
+  }
+
   term
     .on('ready', () => {
-      console.log('READY!');
-    })
-    .on('before:command', command => {
-      console.log(`Received command ${command}`);
+      resizeEffect();
+    });
+
+  termStats
+    .on('ready', () => {
+      resizeEffect();
     });
 
   $(window).resize(() => {
     term.resize();
     termStats.resize();
     termNotis.resize();
+    resizeEffect();
   });
 
   interjection.show();
