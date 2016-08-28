@@ -3,13 +3,15 @@ import kill from './kill';
 import stats from './stats';
 import addresource from './addresource';
 import delresource from './delresource';
+import programs from './programs';
 
 const commands = {
   born,
   kill,
   stats,
   addresource,
-  delresource
+  delresource,
+  programs
 };
 
 exports.run = function(command, term) {
@@ -44,5 +46,5 @@ exports.run = function(command, term) {
 }
 
 const notFound = cmd => {
-  return `${cmd}: Command not found`;
+  return `${cmd}: Command not found. Use [[u;;]help] to see the list of available commands.`;
 };
