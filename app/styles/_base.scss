@@ -126,3 +126,10 @@ body {
          -o-box-shadow: 0 0 5px rgba(0,100,0,50);
             box-shadow: 0 0 5px rgba(0,100,0,50);
 }
+
+.terminal {
+  .h {
+    font-weight: bolder;
+    text-shadow: 0 0 10px white;
+  }
+}
