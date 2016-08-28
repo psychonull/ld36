@@ -4,12 +4,13 @@ import recent from './recent.js';
 import available from './available.js';
 
 import store from '../../store';
+import onStoreChange from './onStoreChange';
 
 const runCmd = commander({
   current,
   recent,
   available
-});
+}, onStoreChange);
 
 export default [
   (cmd, term) => {

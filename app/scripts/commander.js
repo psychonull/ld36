@@ -1,5 +1,11 @@
 
-export default function(commands){
+import store from './store';
+
+export default function(commands, onStoreChange){
+
+  if(onStoreChange){
+    store.subscribe(() => onStoreChange(store));
+  }
 
   return function(command, term) {
     let [ cmd, ...args ] = command.split(' ');
@@ -31,7 +37,7 @@ export default function(commands){
 
     theCmd.run.apply(term, args);
   }
-  
+
 };
 
 const notFound = cmd => {
