@@ -1,6 +1,6 @@
 import EventEmitter from 'tiny-emitter';
 import timeActions from './actions/time';
-import { newYear as slavesNewYear } from './actions/slaves';
+import { oneYearLifeCicle } from './actions/slaves';
 
 export default class Time extends EventEmitter {
   static YEAR = 10 * 1000; // a year in ms
@@ -20,7 +20,7 @@ export default class Time extends EventEmitter {
   }
 
   nextYear() {
-    slavesNewYear();
+    oneYearLifeCicle();
     timeActions.newYear();
     this.emit('year');
   }

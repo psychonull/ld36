@@ -22,7 +22,7 @@ const newAge = which => {
   };
 }
 
-export function newYear() {
+export function oneYearLifeCicle() {
   const probability = 0.1;
   let fired = false;
 
