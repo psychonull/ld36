@@ -3,6 +3,7 @@ import current from './current.js';
 import recent from './recent.js';
 import available from './available.js';
 import send from './send.js';
+import estimate from './estimate.js';
 
 import store from '../../store';
 import onStoreChange from './onStoreChange';
@@ -11,7 +12,8 @@ const runCmd = commander({
   current,
   recent,
   available,
-  send
+  send,
+  estimate
 });
 
 store.subscribe(() => onStoreChange(store));

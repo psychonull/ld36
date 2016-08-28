@@ -14,8 +14,8 @@ const send = (terrain, amount, time) => {
   return {
     type: 'EXPLORATIONS_SEND',
     terrain,
-    amount,
-    time
+    time,
+    slaves: amount
   };
 };
 
