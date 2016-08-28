@@ -7,6 +7,7 @@ import travel from './travel';
 import addresource from './addresource';
 import delresource from './delresource';
 import programs from './programs';
+import reboot from './reboot';
 import about from './about';
 
 exports.run = commander({
@@ -17,5 +18,6 @@ exports.run = commander({
   addresource,
   delresource,
   programs,
+  reboot,
   about
 });
