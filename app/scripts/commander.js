@@ -11,22 +11,7 @@ export default function(commands, onStoreChange){
     let [ cmd, ...args ] = command.split(' ');
 
     if (cmd === 'help'){
-      if (args.length === 0){
-        Object.keys(commands).forEach( c => {
-          term.echo(`  ${c}: ${commands[c].help}`);
-        });
-        return;
-      }
-
-      let [which] = args;
-      let helpCmd = commands[which];
-      if (helpCmd){
-        term.echo(helpCmd.help);
-        return;
-      }
-
-      term.echo(notFound(helpCmd));
-      return;
+      return help(term, commands, args);
     }
 
     let theCmd = commands[cmd];
@@ -38,6 +23,26 @@ export default function(commands, onStoreChange){
     theCmd.run.apply(term, args);
   }
 
+};
+
+const help = (term, commands, args) => {
+  if (args.length === 0){
+    Object.keys(commands).forEach( c => {
+      term.echo(`  ${c}: ${commands[c].help}`);
+    });
+    term.echo(`  exit: exit from the program that is currently running`);
+    return;
+  }
+
+  let [which] = args;
+  let helpCmd = commands[which];
+  if (helpCmd){
+    term.echo(helpCmd.help);
+    return;
+  }
+
+  term.echo(notFound(helpCmd));
+  return;
 };
 
 const notFound = cmd => {
