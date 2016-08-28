@@ -7,7 +7,8 @@ import travel from './travel';
 import addresource from './addresource';
 import delresource from './delresource';
 import programs from './programs';
-import terms from './terms';
+import reboot from './reboot';
+import about from './about';
 
 exports.run = commander({
   born,
@@ -17,5 +18,6 @@ exports.run = commander({
   addresource,
   delresource,
   programs,
-  terms
+  reboot,
+  about
 });
