@@ -1,5 +1,5 @@
 import interjection from './interjection.js';
-import Terminal from './Terminal.js';
+import Terminal from './terminal.js';
 
 $(function() {
   let term = new Terminal('term');
