@@ -50,6 +50,18 @@ body {
   background-color: transparent;
   position: relative;
   overflow-x: hidden;
+}
+
+.terminal-output,
+.cmd,
+.cmd .cursor.blink {
+  font-family: 'Inconsolata', monospace;
+  color: $color-green;
+  font-size: 1.3em;
+  line-height: 18px;
+  font-weight: 900;
+
+  position: relative;
 
   &::after {
     content: ' ';
@@ -63,16 +75,6 @@ body {
     padding: 0;
     z-index: 10;
   }
-}
-
-.terminal-output,
-.cmd,
-.cmd .cursor.blink {
-  font-family: 'Inconsolata', monospace;
-  color: $color-green;
-  font-size: 1.3em;
-  line-height: 18px;
-  font-weight: 900;
 }
 
 .terminal-output>div {
