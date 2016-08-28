@@ -78,6 +78,7 @@ body {
 
 .crt-term,
 .crt-term-right {
+  pointer-events: none;
   position: fixed;
   margin: 0;
   padding: 0;
