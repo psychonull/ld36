@@ -3,6 +3,7 @@ import commander from '../commander';
 import born from './born';
 import kill from './kill';
 import stats from './stats';
+import places from './places';
 import travel from './travel';
 import addresource from './addresource';
 import delresource from './delresource';
@@ -14,6 +15,7 @@ exports.run = commander({
   born,
   kill,
   stats,
+  places,
   travel,
   addresource,
   delresource,

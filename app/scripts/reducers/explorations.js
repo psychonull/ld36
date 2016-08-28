@@ -5,7 +5,16 @@ chance.mixin({
   'terrain': (direction) => ({
     direction: direction || chance.pickone(['W','N','E','S']),
     distance: chance.integer({min: 1, max: 4}),
-    risk: chance.integer({min: 1, max: 3})
+    risk: chance.integer({min: 1, max: 3}),
+
+  }),
+  'place': (terrain) => ({
+    resources: {
+      sand: chance.integer({min: 0, max: 300}),
+      water: chance.integer({min: 0, max: 300}),
+      stone: chance.integer({min: 0, max: 300})
+    },
+    people: chance.integer({min: 1, max: 1000})
   })
 });
 
@@ -21,7 +30,8 @@ const getTimeToComplete = (terrain, amount) => {
 const initialState = {
   current: [],
   recent: [],
-  terrains: getInitialTerrains()
+  terrains: getInitialTerrains(),
+  places: []
 };
 
 export default function(state = initialState, action) {
@@ -39,7 +49,8 @@ export default function(state = initialState, action) {
     case 'EXPLORATIONS_FINISH': {
       let recent = [...state.recent, action.exploration];
       let current = state.current.filter((e) => e !== action.exploration);
-      return {...state, recent, current};
+      let places = [...state.places, chance.place(action.exploration.terrain)];
+      return {...state, recent, current, places};
     }
   }
   return state;
