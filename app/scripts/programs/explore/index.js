@@ -10,7 +10,9 @@ const runCmd = commander({
   current,
   recent,
   available
-}, onStoreChange);
+});
+
+store.subscribe(() => onStoreChange(store));
 
 export default [
   (cmd, term) => {

@@ -1,11 +1,5 @@
 
-import store from './store';
-
-export default function(commands, onStoreChange){
-
-  if(onStoreChange){
-    store.subscribe(() => onStoreChange(store));
-  }
+export default function(commands){
 
   return function(command, term) {
     let [ cmd, ...args ] = command.split(' ');
