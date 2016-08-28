@@ -41,7 +41,7 @@ export function oneYearLifeCicle() {
   }
 
   if (Math.random() < probability ? true : false) { // new child // born
-    store.dispatch(receive(1, 0, 0));
+    store.dispatch(newAge('born'));
   }
 };
 

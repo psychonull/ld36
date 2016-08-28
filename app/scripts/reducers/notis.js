@@ -42,6 +42,9 @@ export default function(state = initialState, action) {
     }
     case 'SLAVES_NEW_AGE': {
       switch(action.which){
+        case 'born': {
+          return pushEvent('A Child slave has Born');
+        }
         case 'child': {
           return pushEvent('A Child slave has become an Adult');
         }
