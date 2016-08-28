@@ -24,24 +24,23 @@ const newAge = which => {
 
 export function oneYearLifeCicle() {
   const probability = 0.1;
-  let fired = false;
 
   if (Math.random() < probability ? true : false) { // Old slave dies
     store.dispatch(die(0, 0, 1));
-    fired = true;
+    return;
   }
 
-  if (!fired && Math.random() < probability ? true : false) { // child to adult
+  if (Math.random() < probability ? true : false) { // child to adult
     store.dispatch(newAge('child'));
-    fired = true;
+    return;
   }
 
-  if (!fired && Math.random() < probability ? true : false) { // adult to aged
+  if (Math.random() < probability ? true : false) { // adult to aged
     store.dispatch(newAge('adult'));
-    fired = true;
+    return;
   }
 
-  if (!fired && Math.random() < probability ? true : false) { // new child // born
+  if (Math.random() < probability ? true : false) { // new child // born
     store.dispatch(receive(1, 0, 0));
   }
 };
