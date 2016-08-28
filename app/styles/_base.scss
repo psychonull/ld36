@@ -1,12 +1,89 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata';
+
 body {
   background-color: #000;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Inconsolata', monospace;
   color: #333;
   padding: 0;
   margin: 0;
   overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+
 }
 
 #term {
   padding: 20px;
+  z-index: 10;
+  background-color: transparent;
+  position: relative;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url('/images/0.png') repeat fixed center;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+  }
+}
+
+.terminal-output,
+.cmd,
+.cmd .cursor.blink {
+  font-family: 'Inconsolata', monospace;
+  color: #2bbd2b;
+  font-size: 1.5em;
+  line-height: 18px;
+  font-weight: 900;
+}
+
+.terminal-output>div {
+  min-height: 16px;
+  margin: 2px 0;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-ms-keyframes blink {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-moz-keyframes blink {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+.cmd .cursor.blink {
+    background: #0c0;
+    -webkit-animation: blink 1s infinite linear;
+       -moz-animation: blink 1s infinite linear;
+        -ms-animation: blink 1s infinite linear;
+            animation: blink 1s linear infinite;
+    -webkit-box-shadow: 0 0 5px rgba(0,100,0,50);
+       -moz-box-shadow: 0 0 5px rgba(0,100,0,50);
+        -ms-box-shadow: 0 0 5px rgba(0,100,0,50);
+         -o-box-shadow: 0 0 5px rgba(0,100,0,50);
+            box-shadow: 0 0 5px rgba(0,100,0,50);
 }
