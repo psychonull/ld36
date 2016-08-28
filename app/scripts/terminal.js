@@ -15,6 +15,8 @@ export default class Terminal extends EventEmitter {
   constructor(id) {
     super();
     this.create(id);
+    // TODO: check if we have a start moment and put this there
+    window.Time.start();
   }
 
   static getWSize() {
@@ -64,7 +66,7 @@ export default class Terminal extends EventEmitter {
 
     store.subscribe(() => {
       let slaves = store.getState().slaves;
-      if (slaves.count === 0){
+      if (slaves.total === 0){
         terminal.echo('You have NO Slaves so ... GAME OVER');
       }
     });
