@@ -20,4 +20,10 @@ exports.run = commander({
   programs,
   reboot,
   about
-});
+}, [
+  'born',
+  'kill',
+  'travel',
+  'addresource',
+  'delresource'
+]);

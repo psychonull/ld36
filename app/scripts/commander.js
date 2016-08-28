@@ -1,5 +1,34 @@
+import AsciiTable from 'ascii-table';
 
-export default function(commands){
+export default function(commands, hidden){
+
+  const help = (term, commands, args) => {
+    if (args.length === 0){
+
+      let table = new AsciiTable();
+
+      Object.keys(commands).forEach( c => {
+        if ((hidden|| []).indexOf(c) === -1) {
+          table.addRow(c, commands[c].help);
+        }
+      });
+
+      table.addRow('exit', 'exit from the program that is currently running');
+      table.removeBorder();
+      term.echo(table.toString());
+      return;
+    }
+
+    let [which] = args;
+    let helpCmd = commands[which];
+    if (helpCmd){
+      term.echo(helpCmd.help);
+      return;
+    }
+
+    term.echo(notFound(helpCmd));
+    return;
+  };
 
   return function(command, term) {
     let [ cmd, ...args ] = command.split(' ');
@@ -17,26 +46,6 @@ export default function(commands){
     theCmd.run.apply(term, args);
   }
 
-};
-
-const help = (term, commands, args) => {
-  if (args.length === 0){
-    Object.keys(commands).forEach( c => {
-      term.echo(`  ${c}: ${commands[c].help}`);
-    });
-    term.echo(`  exit: exit from the program that is currently running`);
-    return;
-  }
-
-  let [which] = args;
-  let helpCmd = commands[which];
-  if (helpCmd){
-    term.echo(helpCmd.help);
-    return;
-  }
-
-  term.echo(notFound(helpCmd));
-  return;
 };
 
 const notFound = cmd => {

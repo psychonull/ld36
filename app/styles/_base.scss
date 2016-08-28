@@ -1,5 +1,8 @@
 @import 'https://fonts.googleapis.com/css?family=Inconsolata';
 
+$color-green: #2bbd2b;
+$color-green-rgba: rgba(43,189,43,0.5);
+
 body {
   background-color: #000;
   font-family: 'Inconsolata', monospace;
@@ -38,7 +41,7 @@ body {
   right:0;
   width: 400px;
   bottom:0;
-  border-left: 2px solid green;
+  border-left: 2px solid $color-green;
 }
 
 .term-view {
@@ -66,8 +69,8 @@ body {
 .cmd,
 .cmd .cursor.blink {
   font-family: 'Inconsolata', monospace;
-  color: #2bbd2b;
-  font-size: 1.5em;
+  color: $color-green;
+  font-size: 1.3em;
   line-height: 18px;
   font-weight: 900;
 }
@@ -75,10 +78,19 @@ body {
 .terminal-output>div {
   min-height: 16px;
   margin: 2px 0;
+
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 #term-stats {
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid $color-green;
 }
 
 #term-stats, #term-notis {
@@ -114,17 +126,18 @@ body {
     50% { opacity: 0; }
     100% { opacity: 1; }
 }
+
 .cmd .cursor.blink {
-    background: #0c0;
+    background: $color-green;
     -webkit-animation: blink 1s infinite linear;
        -moz-animation: blink 1s infinite linear;
         -ms-animation: blink 1s infinite linear;
             animation: blink 1s linear infinite;
-    -webkit-box-shadow: 0 0 5px rgba(0,100,0,50);
-       -moz-box-shadow: 0 0 5px rgba(0,100,0,50);
-        -ms-box-shadow: 0 0 5px rgba(0,100,0,50);
-         -o-box-shadow: 0 0 5px rgba(0,100,0,50);
-            box-shadow: 0 0 5px rgba(0,100,0,50);
+    -webkit-box-shadow: 0 0 5px $color-green-rgba;
+       -moz-box-shadow: 0 0 5px $color-green-rgba;
+        -ms-box-shadow: 0 0 5px $color-green-rgba;
+         -o-box-shadow: 0 0 5px $color-green-rgba;
+            box-shadow: 0 0 5px $color-green-rgba;
 }
 
 .terminal {
