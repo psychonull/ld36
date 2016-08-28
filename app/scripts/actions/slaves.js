@@ -1,17 +1,17 @@
 import { bindActionCreators } from 'redux';
 import store from '../store';
 
-const receive = (childs, adults, aged) => {
+const receive = (childs, adults, ageds) => {
   return {
     type: 'SLAVES_RECEIVE',
-    childs, adults, aged
+    childs, adults, ageds
   };
 }
 
-const die = (childs, adults, aged) => {
+const die = (childs, adults, ageds) => {
   return {
     type: 'SLAVES_DIE',
-    childs, adults, aged
+    childs, adults, ageds
   };
 }
 

@@ -9,32 +9,38 @@ import commander from './commands';
 
 export default class Terminal extends EventEmitter {
   static PAD = 20;
-
   terminal = null;
 
   constructor(id) {
     super();
     this.create(id);
-    // TODO: check if we have a start moment and put this there
-    window.Time.start();
   }
 
-  static getWSize() {
+  getProps() {
+    return {
+      enabled: true,
+      greetings: welcome({ version }),
+      name: 'ld36',
+      prompt: '$ '
+    };
+  }
+
+  getWSize() {
     return {
       height: $(window).height() - Terminal.PAD * 2,
-      width: $(window).width() - Terminal.PAD * 2
+      width: ($(window).width() - Terminal.PAD * 2) - 400
     };
   }
 
   create(id) {
-    let wSize = Terminal.getWSize();
+    let wSize = this.getWSize();
 
-    $(`#${id}`).terminal(::this.onCommand, Object.assign(wSize, {
-      greetings: welcome({ version }),
-      name: 'ld36',
-      prompt: '$ ',
-      onInit: ::this.onInit
-    }));
+    $(`#${id}`).terminal(
+      (command, term) => this.onCommand(command, term),
+      Object.assign(wSize, this.getProps(), {
+        onInit: terminal => this.onInit(terminal)
+      })
+    );
   }
 
   onCommand(command, term) {
@@ -59,19 +65,24 @@ export default class Terminal extends EventEmitter {
   onInit(terminal) {
     this.terminal = terminal;
 
-    $(window).resize(() => {
-      let wSize = Terminal.getWSize();
-      this.terminal.resize(wSize.width, wSize.height);
-    });
+    setTimeout(() => {
+      this.onReady();
+      this.emit('ready');
+    }, 1);
+  }
 
+  resize() {
+    let wSize = this.getWSize();
+    this.terminal.resize(wSize.width, wSize.height);
+  }
+
+  onReady() {
     store.subscribe(() => {
       let slaves = store.getState().slaves;
       if (slaves.total === 0){
         terminal.echo('You have NO Slaves so ... GAME OVER');
       }
     });
-
-    setTimeout(() => this.emit('ready'), 1);
   }
 
 }

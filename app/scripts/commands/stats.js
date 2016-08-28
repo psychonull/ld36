@@ -22,7 +22,7 @@ export default {
       .setHeading(
         AsciiTable.align(AsciiTable.CENTER, 'Childs', 8),
         AsciiTable.align(AsciiTable.CENTER, 'Adults', 8),
-        AsciiTable.align(AsciiTable.CENTER, 'Ancients', 8),
+        AsciiTable.align(AsciiTable.CENTER, 'Elderlies', 8),
         AsciiTable.align(AsciiTable.CENTER, 'Total', 8)
       )
       .addRow(
