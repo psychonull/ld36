@@ -8,13 +8,14 @@ import estimate from './estimate.js';
 import store from '../../store';
 import onStoreChange from './onStoreChange';
 
-const runCmd = commander({
+const commands = {
   current,
   recent,
   available,
   send,
   estimate
-});
+};
+const runCmd = commander(commands);
 
 store.subscribe(() => onStoreChange(store));
 
@@ -32,6 +33,7 @@ There are ${explorationsState.current.length} explorations in progress.
 ${explorationsState.recent.length} campaings finished recently.
 =============================================`
       );
-    }
+    },
+    completion: Object.keys(commands)
   }
 ];
