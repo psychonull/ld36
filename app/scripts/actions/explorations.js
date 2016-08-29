@@ -19,14 +19,33 @@ const send = (terrain, amount, time) => {
   };
 };
 
-const finish = (exploration) => {
+const fail = (exploration) => {
   return {
-    type: 'EXPLORATIONS_FINISH',
+    type: 'EXPLORATIONS_FAIL',
     exploration
   };
 };
 
+const finish = (exploration) => {
+  return {
+    type: 'EXPLORATIONS_FINISH',
+    exploration,
+    slaves: exploration.slavesAlive
+  };
+};
+
+const death = (exploration, amount, year) => {
+  return {
+    type: 'EXPLORATIONS_DEATH',
+    exploration,
+    amount,
+    year
+  };
+}
+
 export default bindActionCreators({
   send,
-  finish
+  finish,
+  fail,
+  death
 }, store.dispatch);

@@ -1,23 +1,5 @@
 import store from '../../store';
-
-const getDistance = (d) => {
-  return [
-    undefined,
-    'near',
-    'middle',
-    'far',
-    'far far far away'
-  ][d] || 'N/A';
-};
-
-const getRisk = (r) => {
-  return [
-    undefined,
-    'low',
-    'medium',
-    'high'
-  ][r] || 'N/A';
-};
+import { getDistance, getRisk } from './helpers.js';
 
 export default {
   help: 'list available terrains to explore',
