@@ -7,6 +7,7 @@ import estimate from './estimate.js';
 
 import store from '../../store';
 import onStoreChange from './onStoreChange';
+import { CATEGORY } from '../../constants';
 
 const commands = {
   current,
@@ -16,14 +17,14 @@ const commands = {
   estimate
 };
 
-store.subscribe(onStoreChange);
+store.subscribe(() => onStoreChange());
 
 export default [commander(commands), {
     prompt: 'explore>',
     onStart: (term) => {
-      let state = store.getState().explorations;
-      let recent = state.filter( exp => exp.finished );
-      let current = state.filter( exp => !exp.finished );
+      let state = store.getState();
+      let recent = state.campaigns.filter( c => c.finished && c.category === CATEGORY.EXPLORATION);
+      let current = state.campaigns.filter( c => !c.finished && c.category === CATEGORY.EXPLORATION);
 
       term.echo(
 `=============================================

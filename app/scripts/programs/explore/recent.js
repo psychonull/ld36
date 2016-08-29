@@ -1,4 +1,5 @@
 import store from '../../store';
+import { CATEGORY } from '../../constants';
 
 import { formatYear } from './helpers.js';
 
@@ -6,7 +7,9 @@ export default {
   help: 'list recent exploration campaigns',
   run: function() {
     let state = store.getState();
-    let recent = state.explorations.filter( exp => exp.finished && !exp.failed);
+    let recent = state.campaigns.filter(
+      c => c.finished && !c.failed && c.category === CATEGORY.EXPLORATION
+    );
 
     if(recent.length === 0){
       this.echo('No recent exploration campaigns');

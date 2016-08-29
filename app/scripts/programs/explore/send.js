@@ -1,5 +1,5 @@
 import store from '../../store';
-import { explore } from '../../actions/explorations.js';
+import { explore } from '../../actions/campaigns.js';
 
 export default {
   help: 'send [slavesAmount] [terrain]. Send to explore the specified number of slaves to the terrain.',

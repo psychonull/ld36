@@ -62,6 +62,7 @@ export default function(state = initialState, action) {
       return pushEvent(`${action.slaves} slaves has left to a campaign`);
       break;
     }
+
     case 'RESOURCES_RECEIVE_SAND': {
       return pushEvent(`You have collected ${action.amount} kg of Sand`);
     }
@@ -80,22 +81,33 @@ export default function(state = initialState, action) {
     case 'RESOURCES_REMOVE_STONE': {
       return pushEvent(`You have used ${action.amount} kg of Stone`);
     }
-    case 'EXPLORATIONS_START': {
+
+    case 'EXPLORATION_START': {
       let sum = (action.slaves.childs || 0) + (action.slaves.adults || 0) + (action.slaves.ageds || 0)
       return pushEvent(`Exploration #${action.id} has been sent with ${sum} slaves`);
     }
-    case 'EXPLORATIONS_DEATH': {
-      return pushEvent(`A slave has died during Exploration #${action.id}`);
+    case 'GATHER_START': {
+      let sum = (action.slaves.childs || 0) + (action.slaves.adults || 0) + (action.slaves.ageds || 0)
+      return pushEvent(`Gather #${action.id} has been sent with ${sum} slaves`);
     }
-    case 'EXPLORATIONS_FAIL': {
-      return pushEvent(`Exploration #${action.id} has failed`);
+    case 'ENSLAVE_START': {
+      let sum = (action.slaves.childs || 0) + (action.slaves.adults || 0) + (action.slaves.ageds || 0)
+      return pushEvent(`Enslave #${action.id} has been sent with ${sum} slaves`);
     }
-    case 'EXPLORATIONS_FINISH': {
-      return pushEvent(`Exploration #${action.id} is now finished`);
+    case 'CAMPAIGNS_DEATH': {
+      return pushEvent(`A slave has died during ${action.category} #${action.id}`);
     }
+    case 'CAMPAIGNS_FAIL': {
+      return pushEvent(`${action.category} #${action.id} has failed`);
+    }
+    case 'CAMPAIGNS_FINISH': {
+      return pushEvent(`${action.category} #${action.id} is now finished`);
+    }
+
     case 'TERRAINS_CREATE': {
       return pushEvent(`New Terrain #${action.id} has been discovered on ${action.direction}`);
     }
+
     case 'PLACE_CREATE': {
       const tot = Object.keys(action.resources).reduce((sum, k)=> {
         return sum + action.resources[k];

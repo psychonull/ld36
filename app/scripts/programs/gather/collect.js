@@ -1,5 +1,5 @@
 import store from '../../store';
-import { collect } from '../../actions/gathers';
+import { gather } from '../../actions/campaigns';
 
 export default {
   help: 'collect [resource] [terrain] [slaves]',

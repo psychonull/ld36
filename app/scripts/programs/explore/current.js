@@ -1,12 +1,13 @@
 import store from '../../store';
 import { formatYear, getRisk } from './helpers.js';
+import { CATEGORY } from '../../constants';
 
 export default {
   help: 'list exploration campaigns in course',
   run: function() {
     let state = store.getState();
 
-    let currents = state.explorations.filter( exp => !exp.finished);
+    let currents = state.campaigns.filter( c => !c.finished && c.category === CATEGORY.EXPLORATION);
 
     if(currents.length === 0){
       this.echo('No exploration campaigns in course');
