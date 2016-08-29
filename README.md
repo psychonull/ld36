@@ -7,3 +7,6 @@ Build and open hot reload
 
 compile for prod - export in `dist` folder
 `npm run dist`
+
+build for prod + deploy to gh pages
+`npm run deploy`
