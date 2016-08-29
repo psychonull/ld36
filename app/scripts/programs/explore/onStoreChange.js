@@ -5,7 +5,10 @@ export default function(store){
   var state = store.getState();
   state.explorations.current.forEach((e) => {
     //TODO: how to know required time to complete?
-    if(state.time.year - e.sentAt > 10){
+    if(e.slavesAlive <= 0){
+      explorationsActions.fail(e);
+    }
+    if(state.time.year >= e.finishedAt){
       explorationsActions.finish(e);
     }
   });

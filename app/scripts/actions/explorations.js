@@ -19,6 +19,13 @@ const send = (terrain, amount, time) => {
   };
 };
 
+const fail = (exploration) => {
+  return {
+    type: 'EXPLORATIONS_FAIL',
+    exploration
+  };
+};
+
 const finish = (exploration) => {
   return {
     type: 'EXPLORATIONS_FINISH',
