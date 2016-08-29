@@ -1,15 +1,34 @@
 import commander from '../../commander';
+import current from './current.js';
+import collect from './collect.js';
+import store from '../../store';
 
-import test from './test';
+const commands = {
+  current,
+  collect
+};
 
-const runCmd = commander({
-  test
+store.subscribe(() => {
+  var state = store.getState().gathers;
+  //state.current.forEach((e) => {
+  //  //TODO: how to know required time to complete?
+  //  if(state.time.year - e.sentAt > 10){
+  //    explorationsActions.finish(e);
+  //  }
+  //});
 });
 
-export default [
-  (cmd, term) => {
-    runCmd(cmd, term);
-  }, {
-    prompt: 'gather>'
+export default [commander(commands), {
+    prompt: 'gather >',
+    onStart: (term) => {
+      let state = store.getState().gathers;
+      term.echo(
+`=============================================
+Welcome to the gather module.
+There are ${state.current.length} gathers in progress.
+=============================================`
+      );
+    },
+    completion: Object.keys(commands)
   }
 ];

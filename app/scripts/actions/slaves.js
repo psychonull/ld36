@@ -22,7 +22,7 @@ const newAge = which => {
   };
 }
 
-export function oneYearLifeCicle() {
+const oneYearLifeCicle = () => {
   const probability = 0.1;
   const state = store.getState().slaves;
 
@@ -57,7 +57,10 @@ export function oneYearLifeCicle() {
 //  }
 //}
 
-export default bindActionCreators({
-  receive,
-  die
-}, store.dispatch);
+module.exports = {
+  ...bindActionCreators({
+    receive,
+    die
+  }, store.dispatch),
+  oneYearLifeCicle
+};
