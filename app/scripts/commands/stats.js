@@ -20,7 +20,7 @@ export default {
 
     slTab
       .setHeading(
-        AsciiTable.align(AsciiTable.CENTER, 'Childs', 8),
+        AsciiTable.align(AsciiTable.CENTER, 'Children', 8),
         AsciiTable.align(AsciiTable.CENTER, 'Adults', 8),
         AsciiTable.align(AsciiTable.CENTER, 'Elderlies', 8),
         AsciiTable.align(AsciiTable.CENTER, 'Total', 8)
@@ -40,7 +40,7 @@ export default {
     slTab2
       .setHeading(
         AsciiTable.align(AsciiTable.CENTER, 'On Campaign', 20),
-        AsciiTable.align(AsciiTable.CENTER, 'Availables', 19)
+        AsciiTable.align(AsciiTable.CENTER, 'Available', 19)
       )
       .addRow(
         state.slaves.total - state.slaves.idle,
