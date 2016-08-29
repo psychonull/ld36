@@ -1,8 +1,4 @@
 
-// TODO: Apply Actors concept here
-// http://jamesknelson.com/join-the-dark-side-of-the-flux-responding-to-actions-with-actors/
-
-
 import { fail, finish } from '../../actions/explorations.js';
 import store from '../../store';
 

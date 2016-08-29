@@ -47,30 +47,39 @@ const getTimeToComplete = terrain => {
 };
 
 const explore = (terrainId, slaves, startTime) => {
-  const state = store.getState();
-  const [terrain] = state.terrains.filter( t => t.id === terrainId );
-  const end = startTime + getTimeToComplete(terrain);
+  return (dispatch, getState) => {
+    const state = getState();
 
-  slavesLeave(slaves);
-  store.dispatch(start(terrainId, getRndSlaves(state.slaves, slaves), startTime, end));
-  exploring(terrainId);
+    const [terrain] = state.terrains.filter( t => t.id === terrainId );
+    const end = startTime + getTimeToComplete(terrain);
+
+    slavesLeave(slaves);
+    dispatch(start(terrainId, getRndSlaves(state.slaves, slaves), startTime, end));
+    exploring(terrainId);
+  };
 };
 
 const finish = id => {
-  const state = store.getState();
-  const [exp] = state.explorations.filter( e => e.id === id);
-  store.dispatch(finishExp(id));
-  markExplored(exp.terrain);
-  slavesComeBack(exp.slavesAlive);
+  // This is an Actor (used from redux-thunk to disallow double fires of same action)
+  // cause on first action could change the store before it finishes entirely.
+  return (dispatch, getState) => {
+    const state = getState();
+    const [exp] = state.explorations.filter( e => e.id === id);
+
+    if (exp.finished) return; // already finished
+
+    dispatch(finishExp(id));
+    markExplored(exp.terrain);
+    slavesComeBack(exp.slavesAlive);
+  };
 };
 
 module.exports = {
   ...bindActionCreators({
     start,
     fail,
-    finishExp,
-    death
+    death,
+    finish,
+    explore
   }, store.dispatch),
-  explore,
-  finish
 };
