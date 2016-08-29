@@ -51,6 +51,9 @@ const explore = (terrainId, slaves, startTime) => {
     const state = getState();
 
     const [terrain] = state.terrains.filter( t => t.id === terrainId );
+
+    if (terrain.exploring) return; // already exploring
+
     const end = startTime + getTimeToComplete(terrain);
 
     slavesLeave(slaves);
@@ -74,12 +77,10 @@ const finish = id => {
   };
 };
 
-module.exports = {
-  ...bindActionCreators({
-    start,
-    fail,
-    death,
-    finish,
-    explore
-  }, store.dispatch),
-};
+module.exports = bindActionCreators({
+  start,
+  fail,
+  death,
+  finish,
+  explore
+}, store.dispatch);
