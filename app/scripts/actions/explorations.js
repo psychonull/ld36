@@ -2,59 +2,75 @@ import { bindActionCreators } from 'redux';
 import store from '../store';
 import { getRndSlaves } from '../utils/toss';
 
-// Example of Async Actions
-//const incrementAsync = value => {
-//  return (dispatch) => {
-//    setTimeout( () => {
-//      dispatch(increment(value));
-//    }, 2000);
-//  }
-//}
+import { exploring, markExplored } from './terrains';
+import { leave as slavesLeave, comeBack as slavesComeBack } from './slaves';
 
-const send = (terrain, slaves, time) => {
+let explorationIds = 1;
+
+const start = (terrain, slaves, startTime, end) => {
   return {
-    type: 'EXPLORATIONS_SEND',
+    type: 'EXPLORATIONS_START',
+    id: explorationIds++,
     terrain,
-    time,
-    slaves
+    slaves,
+    start: startTime,
+    end
   };
 };
 
-const fail = (exploration) => {
+const fail = id => {
   return {
     type: 'EXPLORATIONS_FAIL',
-    exploration
+    id
   };
 };
 
-const finish = (exploration) => {
+const finishExp = id => {
   return {
     type: 'EXPLORATIONS_FINISH',
-    exploration,
-    slaves: exploration.slavesAlive
+    id
   };
 };
 
-const death = (exploration, amount, year) => {
+const death = (id/*, amount, year*/) => {
   return {
     type: 'EXPLORATIONS_DEATH',
-    exploration,
-    amount,
-    year
+    id
   };
 }
 
-const explore = (terrain, slaves, time) => {
-  const state = store.getState().slaves;
-  store.dispatch(send(terrain, getRndSlaves(state, slaves), time));
+const getTimeToComplete = terrain => {
+  return chance.integer({
+    min: terrain.estimates.minTime,
+    max: terrain.estimates.maxTime
+  });
+};
+
+const explore = (terrainId, slaves, startTime) => {
+  const state = store.getState();
+  const [terrain] = state.terrains.filter( t => t.id === terrainId );
+  const end = startTime + getTimeToComplete(terrain);
+
+  slavesLeave(slaves);
+  store.dispatch(start(terrainId, getRndSlaves(state.slaves, slaves), startTime, end));
+  exploring(terrainId);
+};
+
+const finish = id => {
+  const state = store.getState();
+  const [exp] = state.explorations.filter( e => e.id === id);
+  store.dispatch(finishExp(id));
+  markExplored(exp.terrain);
+  slavesComeBack(exp.slavesAlive);
 };
 
 module.exports = {
   ...bindActionCreators({
-    send,
-    finish,
+    start,
     fail,
+    finishExp,
     death
   }, store.dispatch),
-  explore
+  explore,
+  finish
 };

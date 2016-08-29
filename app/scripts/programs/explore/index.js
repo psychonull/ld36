@@ -15,22 +15,21 @@ const commands = {
   send,
   estimate
 };
-const runCmd = commander(commands);
 
-store.subscribe(() => onStoreChange(store));
+store.subscribe(onStoreChange);
 
-export default [
-  (cmd, term) => {
-    runCmd(cmd, term);
-  }, {
+export default [commander(commands), {
     prompt: 'explore>',
     onStart: (term) => {
-      let explorationsState = store.getState().explorations;
+      let state = store.getState().explorations;
+      let recent = state.filter( exp => exp.finished );
+      let current = state.filter( exp => !exp.finished );
+
       term.echo(
 `=============================================
 Welcome to the exploration module.
-There are ${explorationsState.current.length} explorations in progress.
-${explorationsState.recent.length} campaings finished recently.
+There are ${current.length} explorations in progress.
+${recent.length} campaings finished recently.
 =============================================`
       );
     },

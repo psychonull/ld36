@@ -25,8 +25,8 @@ export default function(state = initialState, action) {
       return {...newState, idle, total };
     }
 
-    case 'GATHER_DEATH':
-    case 'EXPLORATIONS_DEATH':
+    //case 'GATHER_DEATH':
+    //case 'EXPLORATIONS_DEATH':
     case 'SLAVES_DIE': {
       let newState = { ...state,
         childs: state.childs - (action.childs || 0),
@@ -36,43 +36,38 @@ export default function(state = initialState, action) {
 
       const check = prop => { newState[prop] = newState[prop] < 0 ? 0 : newState[prop]; };
       ['childs', 'adults', 'ageds'].forEach( p => check(p));
-
+/*
       let idle = state.idle;
       if (action.type === 'SLAVES_DIE'){
         idle--;
       }
-
-      return {...newState, idle, total: sumUp(newState)};
+*/
+      return {...newState, idle: state.idle-1, total: sumUp(newState)};
     }
 
     case 'SLAVES_NEW_AGE': {
       switch(action.which){
         case 'born': {
-          let newState = { ...state, childs: state.childs+1};
-          return {...newState, idle: state.idle + 1, total: sumUp(newState)};
+          return {...state,
+            childs: state.childs+1,
+            idle: state.idle+1,
+            total: state.total+1
+          };
         }
         case 'child': {
-          if (state.child === 0) return state;
-          let childs = (state.childs-1 < 0 ? 0 : state.childs-1);
-          let newState = { ...state, childs, adults: state.adults+1};
-          return {...newState, total: sumUp(newState)};
+          return {...state, childs: state.childs-1, adults: state.adults+1};
         }
         case 'adult': {
-          if (state.adult === 0) return state;
-          let adults = (state.adults-1 < 0 ? 0 : state.adults-1);
-          let newState = { ...state, adults, ageds: state.ageds+1};
-          return {...newState, total: sumUp(newState)};
+          return {...state, adults: state.adults-1, ageds: state.ageds+1};
         }
       }
     }
 
-    case 'GATHER_SEND':
-    case 'EXPLORATIONS_SEND': {
-      return {...state, idle: state.idle - sumUp(action.slaves)};
+    case 'SLAVES_LEAVE': {
+      return {...state, idle: state.idle - action.slaves};
     }
 
-    case 'GATHER_FINISH':
-    case 'EXPLORATIONS_FINISH': {
+    case 'SLAVES_COME_BACK': {
       return {...state, idle: state.idle + action.slaves};
     }
   }

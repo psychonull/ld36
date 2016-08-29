@@ -2,6 +2,7 @@ const version = require('../../package.json').version;
 import { welcome } from './graphics';
 
 import store from './store';
+import { generate as generateInitialTerrains } from './actions/terrains';
 
 import EventEmitter from 'tiny-emitter';
 import programs from './programs';
@@ -78,6 +79,9 @@ export default class Terminal extends EventEmitter {
   }
 
   onReady() {
+    console.log('First Run!');
+    generateInitialTerrains();
+
     store.subscribe(() => {
       let slaves = store.getState().slaves;
       if (slaves.total === 0){

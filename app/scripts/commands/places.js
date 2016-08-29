@@ -16,7 +16,7 @@ const getTable = (places) => {
 
   places.forEach((p, i) => {
     table.addRow(
-      i + 1,
+      p.id,
       p.resources.sand,
       p.resources.water,
       p.resources.stone,
@@ -36,7 +36,7 @@ export default {
   help: 'list the known places ready for exploitation',
   run: function() {
     let state = store.getState();
-    let places = state.explorations.places;
+    let places = state.places;
 
     if(places.length === 0){
       return this.echo('No places knwon. Use the [[i;;]explore] program first.');

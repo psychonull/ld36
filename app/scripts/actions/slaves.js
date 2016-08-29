@@ -22,6 +22,20 @@ const newAge = which => {
   };
 }
 
+const leave = slaves => {
+  return {
+    type: 'SLAVES_LEAVE',
+    slaves
+  };
+}
+
+const comeBack = slaves => {
+  return {
+    type: 'SLAVES_COME_BACK',
+    slaves
+  };
+}
+
 const oneYearLifeCicle = () => {
   const probability = 0.1;
   const state = store.getState().slaves;
@@ -60,7 +74,9 @@ const oneYearLifeCicle = () => {
 module.exports = {
   ...bindActionCreators({
     receive,
-    die
+    die,
+    leave,
+    comeBack
   }, store.dispatch),
   oneYearLifeCicle
 };
