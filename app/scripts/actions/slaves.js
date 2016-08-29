@@ -24,23 +24,26 @@ const newAge = which => {
 
 export function oneYearLifeCicle() {
   const probability = 0.1;
+  const state = store.getState().slaves;
 
-  if (Math.random() < probability ? true : false) { // Old slave dies
+  const toss = () => Math.random() < probability ? true : false;
+
+  if (state.idle > 0 && state.ageds > 0 && toss()) { // Old slave dies
     store.dispatch(die(0, 0, 1));
     return;
   }
 
-  if (Math.random() < probability ? true : false) { // child to adult
+  if (state.childs > 0 && toss()) { // child to adult
     store.dispatch(newAge('child'));
     return;
   }
 
-  if (Math.random() < probability ? true : false) { // adult to aged
+  if (state.adults > 0 && toss()) { // adult to aged
     store.dispatch(newAge('adult'));
     return;
   }
 
-  if (Math.random() < probability ? true : false) { // new child // born
+  if (state.adults >= 2 && toss()) { // new child // born
     store.dispatch(newAge('born'));
   }
 };

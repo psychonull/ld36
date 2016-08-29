@@ -21,7 +21,7 @@ export default class TerminalStats extends Terminal {
 
   getWSize() {
     return {
-      height: 310 - Terminal.PAD * 2,
+      height: 370 - Terminal.PAD * 2,
       width: 400 - Terminal.PAD * 2
     };
   }

@@ -2,7 +2,8 @@ const initialState = {
   total: 5,
   childs: 2,
   adults: 2,
-  ageds: 1
+  ageds: 1,
+  idle: 5
 };
 
 export default function(state = initialState, action) {
@@ -19,12 +20,13 @@ export default function(state = initialState, action) {
         ageds: state.ageds + (action.ageds || 0)
       };
 
-      return {...newState, total: sumUp(newState) };
+      let total = sumUp(newState);
+      let idle = state.idle + (total - state.total);
+      return {...newState, idle, total };
     }
-    case 'SLAVES_BORN': {
-      let newState = {...state, childs: state.childs + 1};
-      return {...newState, total: sumUp(newState) };
-    }
+
+    case 'GATHER_DEATH':
+    case 'EXPLORATIONS_DEATH':
     case 'SLAVES_DIE': {
       let newState = { ...state,
         childs: state.childs - (action.childs || 0),
@@ -35,13 +37,19 @@ export default function(state = initialState, action) {
       const check = prop => { newState[prop] = newState[prop] < 0 ? 0 : newState[prop]; };
       ['childs', 'adults', 'ageds'].forEach( p => check(p));
 
-      return {...newState, total: sumUp(newState)};
+      let idle = state.idle;
+      if (action.type === 'SLAVES_DIE'){
+        idle--;
+      }
+
+      return {...newState, idle, total: sumUp(newState)};
     }
+
     case 'SLAVES_NEW_AGE': {
       switch(action.which){
         case 'born': {
           let newState = { ...state, childs: state.childs+1};
-          return {...newState, total: sumUp(newState)};
+          return {...newState, idle: state.idle + 1, total: sumUp(newState)};
         }
         case 'child': {
           if (state.child === 0) return state;
@@ -56,6 +64,16 @@ export default function(state = initialState, action) {
           return {...newState, total: sumUp(newState)};
         }
       }
+    }
+
+    case 'GATHER_SEND':
+    case 'EXPLORATIONS_SEND': {
+      return {...state, idle: state.idle - sumUp(action)};
+    }
+
+    case 'GATHER_FINISH':
+    case 'EXPLORATIONS_FINISH': {
+      return {...state, idle: state.idle + action.slaves};
     }
   }
 
