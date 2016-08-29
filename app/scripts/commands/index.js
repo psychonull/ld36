@@ -5,6 +5,7 @@ import kill from './kill';
 import stats from './stats';
 import places from './places';
 import travel from './travel';
+import vel from './vel';
 import addresource from './addresource';
 import delresource from './delresource';
 import programs from './programs';
@@ -14,6 +15,7 @@ import about from './about';
 const commands = {
   born,
   kill,
+  vel,
   stats,
   places,
   travel,
@@ -25,6 +27,8 @@ const commands = {
 };
 
 const hidden = [
+  'stats',
+  'vel',
   'born',
   'kill',
   'travel',

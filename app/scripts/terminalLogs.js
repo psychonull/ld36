@@ -17,7 +17,7 @@ export default class TerminalLogs extends Terminal {
 
   getWSize() {
     return {
-      height: $(window).height() - (310 + Terminal.PAD * 2),
+      height: $(window).height() - (370 + Terminal.PAD * 2),
       width: 400 - Terminal.PAD * 2
     };
   }

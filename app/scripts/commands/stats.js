@@ -36,6 +36,19 @@ export default {
       .setAlignRight(2)
       .setAlignRight(3);
 
+    let slTab2 = new AsciiTable();
+    slTab2
+      .setHeading(
+        AsciiTable.align(AsciiTable.CENTER, 'On Campaign', 20),
+        AsciiTable.align(AsciiTable.CENTER, 'Availables', 19)
+      )
+      .addRow(
+        state.slaves.total - state.slaves.idle,
+        state.slaves.idle
+      )
+      .setAlignCenter(0)
+      .setAlignCenter(1);
+
     let resTab = new AsciiTable('Resources');
 
     resTab
@@ -53,6 +66,7 @@ export default {
 
     this.echo(yTab.toString());
     this.echo(slTab.toString());
+    this.echo(slTab2.toString());
     this.echo(resTab.toString());
   }
 }

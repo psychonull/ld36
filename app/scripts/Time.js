@@ -3,8 +3,9 @@ import timeActions from './actions/time';
 import { oneYearLifeCicle } from './actions/slaves';
 
 export default class Time extends EventEmitter {
-  static YEAR = 10 * 1000; // a year in ms
   timer = null;
+  initialVel = 10;
+  vel = 10;
 
   start() {
     this.tick();
@@ -14,9 +15,24 @@ export default class Time extends EventEmitter {
     clearTimeout(this.timer);
   }
 
+  reset() {
+    clearTimeout(this.timer);
+    this.tick();
+  }
+
+  setVel(secs) {
+    this.vel = secs;
+    this.reset();
+  }
+
+  resetVel(){
+    this.vel = this.initialVel;
+    this.reset();
+  }
+
   tick() {
     this.nextYear();
-    this.timer = setTimeout(::this.tick, Time.YEAR);
+    this.timer = setTimeout(::this.tick, this.vel * 1000);
   }
 
   nextYear() {
