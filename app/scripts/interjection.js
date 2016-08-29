@@ -1,7 +1,8 @@
 
-const show = () => {
+const show = (onClose) => {
   if(window.localStorage.getItem('disble-interjection')){
     $('#interjection').remove();
+    onClose();
   }
   else {
     $('#interjection').modal({
@@ -11,6 +12,7 @@ const show = () => {
     });
 
     $('#dismisss-interjection').on('click', dismiss);
+    $('#dismisss-interjection').on('click', onClose);
   }
 
 };

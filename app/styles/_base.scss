@@ -167,3 +167,7 @@ body {
     text-shadow: 0 0 10px white;
   }
 }
+
+.blocker {
+  z-index: 1111 !important;
+}
