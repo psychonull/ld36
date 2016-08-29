@@ -32,6 +32,6 @@ ${recent.length} campaings finished recently.
 =============================================`
       );
     },
-    completion: Object.keys(commands)
+    completion: [...Object.keys(commands), 'help']
   }
 ];

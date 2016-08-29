@@ -23,7 +23,7 @@ export default class Terminal extends EventEmitter {
       greetings: welcome({ version }),
       name: 'ld36',
       prompt: '$ ',
-      completion: [...commander.visible, ...Object.keys(programs)]
+      completion: [...commander.visible, ...Object.keys(programs), 'help']
     };
   }
 
