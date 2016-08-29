@@ -54,6 +54,14 @@ export default function(state = initialState, action) {
         break;
       }
     }
+    case 'SLAVES_COME_BACK': {
+      return pushEvent(`${action.slaves} slaves has come back from campaign`);
+      break;
+    }
+    case 'SLAVES_LEAVE': {
+      return pushEvent(`${action.slaves} slaves has left to a campaign`);
+      break;
+    }
     case 'RESOURCES_RECEIVE_SAND': {
       return pushEvent(`You have collected ${action.amount} kg of Sand`);
     }
@@ -72,6 +80,29 @@ export default function(state = initialState, action) {
     case 'RESOURCES_REMOVE_STONE': {
       return pushEvent(`You have used ${action.amount} kg of Stone`);
     }
+    case 'EXPLORATIONS_START': {
+      let sum = (action.slaves.childs || 0) + (action.slaves.adults || 0) + (action.slaves.ageds || 0)
+      return pushEvent(`Exploration #${action.id} has been sent with ${sum} slaves`);
+    }
+    case 'EXPLORATIONS_DEATH': {
+      return pushEvent(`A slave has died during Exploration #${action.id}`);
+    }
+    case 'EXPLORATIONS_FAIL': {
+      return pushEvent(`Exploration #${action.id} has failed`);
+    }
+    case 'EXPLORATIONS_FINISH': {
+      return pushEvent(`Exploration #${action.id} is now finished`);
+    }
+    case 'TERRAINS_CREATE': {
+      return pushEvent(`New Terrain #${action.id} has been discovered on ${action.direction}`);
+    }
+    case 'PLACE_CREATE': {
+      const tot = Object.keys(action.resources).reduce((sum, k)=> {
+        return sum + action.resources[k];
+      }, 0);
+      return pushEvent(`New Place with a population of ${action.people} and ${tot} resources`);
+    }
+
   }
 
   return state;

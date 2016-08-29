@@ -15,6 +15,11 @@ export default class Time extends EventEmitter {
     clearTimeout(this.timer);
   }
 
+  stop(){
+    this.stopped = true;
+    clearTimeout(this.timer);
+  }
+
   reset() {
     clearTimeout(this.timer);
     this.tick();
@@ -31,8 +36,9 @@ export default class Time extends EventEmitter {
   }
 
   tick() {
+    if (this.stopped) return;
     this.nextYear();
-    this.timer = setTimeout(::this.tick, this.vel * 1000);
+    this.timer = setTimeout(() => this.tick(), this.vel * 1000);
   }
 
   nextYear() {

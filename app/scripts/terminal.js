@@ -85,8 +85,15 @@ export default class Terminal extends EventEmitter {
     store.subscribe(() => {
       let slaves = store.getState().slaves;
       if (slaves.total === 0){
-        this.terminal.echo('You have NO Slaves so ... GAME OVER');
-        window.timer.pause();
+        const y = store.getState().time.year;
+        const year = `[[;;;h]${Math.abs(y)} ${(y < 0 ? 'B.C.' : 'A.C.')}]`;
+
+        window.Time.stop();
+        if (this.ended) return;
+
+        this.terminal.echo('NO more Slaves! - GAME OVER');
+        this.terminal.echo(`You have got to YEAR ${year}`);
+        this.ended = true;
       }
     });
   }
