@@ -1,21 +1,21 @@
 import commander from '../../commander';
-import current from './current.js';
+import current from '../current.js';
+import send from '../send.js';
+
 import places from '../../commands/places.js';
-import send from './send.js';
-//import estimate from './estimate.js';
 
 import store from '../../store';
-import onStoreChange from './onStoreChange';
+import onStoreChange from '../onStoreChange';
 import { CATEGORY } from '../../constants';
 
 const commands = {
-  current,
+  current: current(CATEGORY.ENSLAVE),
+  send: send(CATEGORY.ENSLAVE),
   available: places,
-  send,
-  //estimate
+  send
 };
 
-store.subscribe(() => onStoreChange());
+store.subscribe(() => onStoreChange(CATEGORY.ENSLAVE));
 
 export default [commander(commands), {
     prompt: 'enslave>',

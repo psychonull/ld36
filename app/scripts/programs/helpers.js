@@ -5,7 +5,7 @@ export const getDistance = (d) => {
     'near',
     'middle',
     'far',
-    'far far far away'
+    'too far'
   ][d] || 'N/A';
 };
 
@@ -16,6 +16,16 @@ export const getRisk = (r) => {
     'medium',
     'high'
   ][r] || 'N/A';
+};
+
+export const getDirection = (d) => {
+  switch(d){
+    case 'W': return 'West';
+    case 'N': return 'North';
+    case 'S': return 'South';
+    case 'E': return 'East';
+    default: return 'N/A';
+  }
 };
 
 export const formatYear = (y) => {
