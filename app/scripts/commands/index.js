@@ -12,7 +12,7 @@ import programs from './programs';
 import reboot from './reboot';
 import about from './about';
 
-exports.run = commander({
+const commands = {
   born,
   kill,
   vel,
@@ -24,7 +24,9 @@ exports.run = commander({
   programs,
   reboot,
   about
-}, [
+};
+
+const hidden = [
   'stats',
   'vel',
   'born',
@@ -32,4 +34,7 @@ exports.run = commander({
   'travel',
   'addresource',
   'delresource'
-]);
+];
+
+exports.run = commander(commands, hidden);
+exports.visible = Object.keys(commands).filter((c) => hidden.indexOf(c) === -1);

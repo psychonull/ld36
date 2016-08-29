@@ -21,7 +21,8 @@ export default class Terminal extends EventEmitter {
       enabled: true,
       greetings: welcome({ version }),
       name: 'ld36',
-      prompt: '$ '
+      prompt: '$ ',
+      completion: [...commander.visible, ...Object.keys(programs)]
     };
   }
 
