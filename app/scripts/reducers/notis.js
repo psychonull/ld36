@@ -102,7 +102,13 @@ export default function(state = initialState, action) {
       }, 0);
       return pushEvent(`New Place with a population of ${action.people} and ${tot} resources`);
     }
-
+    case 'PLACE_GATHER': {
+      let unit = (action.resource === 'water' ? 'lts' : 'kg');
+      return pushEvent(`Gathered ${action.amount} ${unit} of ${action.resource} from Place #${action.id}`);
+    }
+    case 'PLACE_ENSLAVE': {
+      return pushEvent(`Slaved ${action.amount} people from Place #${action.id}`);
+    }
   }
 
   return state;

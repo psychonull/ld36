@@ -25,7 +25,7 @@ export default [commander(commands), {
       term.echo(
 `=============================================
 Welcome to the gather module.
-There are ${state.current.length} gathers in progress.
+There are ${state.length} gathers in progress.
 =============================================`
       );
     },
