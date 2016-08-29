@@ -1,5 +1,5 @@
 import store from '../../store';
-import { getDistance, getRisk } from './helpers.js';
+import { getDistance, getRisk } from '../helpers.js';
 
 export default {
   help: 'estimate [slavesAmount] [terrain]. Analyze and estimate costs of an exploration',

@@ -1,7 +1,7 @@
 import store from '../../store';
 import { CATEGORY } from '../../constants';
 
-import { formatYear } from './helpers.js';
+import { formatYear } from '../helpers.js';
 
 export default {
   help: 'list recent exploration campaigns',

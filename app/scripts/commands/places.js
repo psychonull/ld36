@@ -2,7 +2,6 @@
 import AsciiTable from 'ascii-table';
 import store from '../store';
 
-
 const getTable = (places) => {
   let table = new AsciiTable('Known places');
 
