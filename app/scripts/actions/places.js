@@ -26,6 +26,37 @@ const create = place => {
   };
 };
 
+const gather = (id, resource, amount) => {
+  return {
+    type: 'PLACE_GATHER',
+    id,
+    resource,
+    amount
+  };
+};
+
+const enslave = (id, amount) => {
+  return {
+    type: 'PLACE_ENSLAVE',
+    id,
+    amount
+  };
+};
+
+const gathering = id => {
+  return {
+    type: 'PLACE_GATHERING',
+    id
+  };
+};
+
+const enslaving = id => {
+  return {
+    type: 'PLACE_ENSLAVING',
+    id
+  };
+};
+
 const generate = terrainId => {
   const [terrain] = store.getState().terrains.filter( t => t.id === terrainId );
   store.dispatch(create(chance.place(terrain)));
@@ -33,7 +64,11 @@ const generate = terrainId => {
 
 module.exports = {
   ...bindActionCreators({
-    create
+    create,
+    gathering,
+    enslaving,
+    gather,
+    enslave
   }, store.dispatch),
   generate
 };

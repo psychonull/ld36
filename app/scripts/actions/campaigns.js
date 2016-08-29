@@ -3,7 +3,10 @@ import store from '../store';
 import { getRndSlaves } from '../utils/toss';
 
 import { exploring, markExplored } from './terrains';
-import { leave as slavesLeave, comeBack as slavesComeBack } from './slaves';
+import slaves, { leave as slavesLeave, comeBack as slavesComeBack } from './slaves';
+import resources from './resources';
+import places from './places';
+
 import { CATEGORY } from '../constants';
 
 let explorationIds = 1;
@@ -111,13 +114,13 @@ const gather = (placeId, slaves, startTime) => {
 
     const [place] = state.places.filter( p => p.id === placeId);
 
-    //if (place.gathering) return; // already exploring
+    if (place.gathering) return; // already gathering
 
-    const end = startTime + getTimeToCompleteGather(terrain);
+    const end = startTime + getTimeToCompleteGather(place);
 
     slavesLeave(slaves);
     dispatch(startGather(placeId, getRndSlaves(state.slaves, slaves), startTime, end));
-    //gathering(place);
+    places.gathering(placeId);
   };
 };
 
@@ -127,13 +130,13 @@ const enslave = (placeId, slaves, startTime) => {
 
     const [place] = state.places.filter( p => p.id === placeId);
 
-    //if (place.gathering) return; // already exploring
+    if (place.enslaving) return; // already enslaving
 
     const end = startTime + getTimeToCompleteBuild(terrain);
 
     slavesLeave(slaves);
     dispatch(startEnslave(placeId, getRndSlaves(state.slaves, slaves), startTime, end));
-    //gathering(place);
+    places.enslaving(placeId);
   };
 };
 
@@ -147,7 +150,7 @@ const finish = (id, category) => {
 
     if (camp.finished) return; // already finished
 
-    dispatch(finishExp(id));
+    dispatch(finishExp(id, category));
     slavesComeBack(camp.slavesAlive);
 
     switch(category){
@@ -156,11 +159,20 @@ const finish = (id, category) => {
         break;
       }
       case CATEGORY.GATHER: {
-        //markExplored(camp.place);
+        let [currPlace] = state.places.filter(p => p.id === camp.place);
+        let resource = chance.pickone(['sand', 'water', 'stone']);
+        let amount = chance.integer({ min: 1, max: currPlace.resources[resource] });
+
+        places.gather(camp.place, resource, amount);
+        resources[`receive${resource.charAt(0).toUpperCase() + resource.slice(1)}`](amount);
         break;
       }
       case CATEGORY.ENSLAVE: {
-        //markExplored(camp.place);
+        let [currPlace] = state.places.filter(p => p.id === camp.place);
+        let enslaved = chance.integer({ min: 1, max: currPlace.resources[resource] });
+
+        places.enslave(camp.place, enslaved);
+        slaves.receive(getRndSlaves(state.slaves, enslaved));
         break;
       }
     }

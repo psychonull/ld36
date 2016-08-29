@@ -7,11 +7,13 @@ const getTable = (places) => {
   let table = new AsciiTable('Known places');
 
   table.setHeading(
-    AsciiTable.align(AsciiTable.CENTER, '#', 8),
-    AsciiTable.align(AsciiTable.CENTER, 'Sand', 8),
-    AsciiTable.align(AsciiTable.CENTER, 'Water', 8),
-    AsciiTable.align(AsciiTable.CENTER, 'Stone', 8),
-    AsciiTable.align(AsciiTable.CENTER, 'People', 8)
+    AsciiTable.align(AsciiTable.CENTER, '#', 3),
+    AsciiTable.align(AsciiTable.CENTER, 'Sand kg', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'Water lt', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'Stone kg', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'People', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'Gathering', 9),
+    AsciiTable.align(AsciiTable.CENTER, 'Enslaving', 9)
   );
 
   places.forEach((p, i) => {
@@ -20,12 +22,17 @@ const getTable = (places) => {
       p.resources.sand,
       p.resources.water,
       p.resources.stone,
-      p.people
+      p.people,
+      p.gathering ? 'YES' : 'NO',
+      p.enslaving ? 'YES' : 'NO'
     )
-    .setAlignRight(0)
+    .setAlignCenter(0)
     .setAlignRight(1)
     .setAlignRight(2)
-    .setAlignRight(3);
+    .setAlignRight(3)
+    .setAlignRight(4)
+    .setAlignCenter(5)
+    .setAlignCenter(6);
   });
 
   return table.toString();

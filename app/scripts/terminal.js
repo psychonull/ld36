@@ -49,6 +49,14 @@ export default class Terminal extends EventEmitter {
     this.emit('before:command', command);
 
     if (command !== '') {
+
+      if (this.ended){
+        if (['reboot', 'exit', 'help', 'about'].indexOf(command) === -1){
+          this.terminal.echo('Command Unavailable: Use [[;;;h]reboot] command to restart');
+          return;
+        }
+      }
+
       if (programs.hasOwnProperty(command)) {
         this.emit('before:run:program', command);
         term.push(...programs[command]);
@@ -93,6 +101,7 @@ export default class Terminal extends EventEmitter {
 
         this.terminal.echo('NO more Slaves! - GAME OVER');
         this.terminal.echo(`You have got to YEAR ${year}`);
+        this.terminal.echo('Use [[;;;h]reboot] command to restart');
         this.ended = true;
       }
     });
