@@ -9,7 +9,7 @@ const initialState = {
 export default function(state = initialState, action) {
 
   const sumUp = _state => {
-    return _state.childs + _state.adults + _state.ageds;
+    return (_state.childs || 0) + (_state.adults || 0) + (_state.ageds || 0);
   };
 
   switch(action.type) {
@@ -68,7 +68,7 @@ export default function(state = initialState, action) {
 
     case 'GATHER_SEND':
     case 'EXPLORATIONS_SEND': {
-      return {...state, idle: state.idle - sumUp(action)};
+      return {...state, idle: state.idle - sumUp(action.slaves)};
     }
 
     case 'GATHER_FINISH':

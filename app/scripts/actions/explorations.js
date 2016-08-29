@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
 import store from '../store';
+import { getRndSlaves } from '../utils/toss';
 
 // Example of Async Actions
 //const incrementAsync = value => {
@@ -10,12 +11,12 @@ import store from '../store';
 //  }
 //}
 
-const send = (terrain, amount, time) => {
+const send = (terrain, slaves, time) => {
   return {
     type: 'EXPLORATIONS_SEND',
     terrain,
     time,
-    slaves: amount
+    slaves
   };
 };
 
@@ -43,9 +44,17 @@ const death = (exploration, amount, year) => {
   };
 }
 
-export default bindActionCreators({
-  send,
-  finish,
-  fail,
-  death
-}, store.dispatch);
+const explore = (terrain, slaves, time) => {
+  const state = store.getState().slaves;
+  store.dispatch(send(terrain, getRndSlaves(state, slaves), time));
+};
+
+module.exports = {
+  ...bindActionCreators({
+    send,
+    finish,
+    fail,
+    death
+  }, store.dispatch),
+  explore
+};

@@ -61,10 +61,11 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type) {
     case 'EXPLORATIONS_SEND': {
+      let sum = (action.slaves.childs || 0) + (action.slaves.adults || 0) + (action.slaves.ageds || 0);
       let current = [...state.current, {
         terrain: action.terrain,
-        slavesSent: action.slaves,
-        slavesAlive: action.slaves,
+        slavesSent: sum,
+        slavesAlive: sum,
         sentAt: action.time,
         finishedAt: action.time + getTimeToComplete(action.terrain) //HACK: set finish beforehand
       }];
