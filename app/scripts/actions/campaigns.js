@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import store from '../store';
-import { getRndSlaves } from '../utils/toss';
+import { getRndSlaves, getRndSlavesAny } from '../utils/toss';
 
 import { exploring, markExplored } from './terrains';
 import slaves, { leave as slavesLeave, comeBack as slavesComeBack } from './slaves';
@@ -85,6 +85,13 @@ const getTimeToCompleteGather = place => { //TODO: build from place area km2
   });
 };
 
+const getTimeToCompleteEnslaving = place => { //TODO: build from place and population
+  return chance.integer({
+    min: 1,
+    max: 8
+  });
+};
+
 const getTimeToCompleteBuild = building => { //TODO: build from building size
   return chance.integer({
     min: 1,
@@ -132,7 +139,7 @@ const enslave = (placeId, slaves, startTime) => {
 
     if (place.enslaving) return; // already enslaving
 
-    const end = startTime + getTimeToCompleteBuild(terrain);
+    const end = startTime + getTimeToCompleteEnslaving(place);
 
     slavesLeave(slaves);
     dispatch(startEnslave(placeId, getRndSlaves(state.slaves, slaves), startTime, end));
@@ -169,10 +176,11 @@ const finish = (id, category) => {
       }
       case CATEGORY.ENSLAVE: {
         let [currPlace] = state.places.filter(p => p.id === camp.place);
-        let enslaved = chance.integer({ min: 1, max: currPlace.resources[resource] });
+        let enslaved = chance.integer({ min: 1, max: currPlace.people });
 
         places.enslave(camp.place, enslaved);
-        slaves.receive(getRndSlaves(state.slaves, enslaved));
+        let rndSlaves = getRndSlavesAny(enslaved);
+        slaves.receive(rndSlaves.childs, rndSlaves.adults, rndSlaves.ageds);
         break;
       }
     }
