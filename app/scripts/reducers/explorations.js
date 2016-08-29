@@ -92,6 +92,14 @@ export default function(state = initialState, action) {
       let terrains = [...state.terrains, ...newTerrains];
       return {...state, recent, current, places, terrains};
     }
+    case 'EXPLORATIONS_DEATH': {
+      //HACK: more nasty stuff. mutate objects
+      Object.assign(action.exploration, {
+        slavesAlive: action.exploration.slavesAlive - action.amount,
+        lastDeath: action.year
+      });
+      return {...state};
+    }
   }
   return state;
 }

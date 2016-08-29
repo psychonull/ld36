@@ -29,11 +29,23 @@ const fail = (exploration) => {
 const finish = (exploration) => {
   return {
     type: 'EXPLORATIONS_FINISH',
-    exploration
+    exploration,
+    slaves: exploration.slavesAlive
   };
 };
 
+const death = (exploration, amount, year) => {
+  return {
+    type: 'EXPLORATIONS_DEATH',
+    exploration,
+    amount,
+    year
+  };
+}
+
 export default bindActionCreators({
   send,
-  finish
+  finish,
+  fail,
+  death
 }, store.dispatch);
