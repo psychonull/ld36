@@ -43,6 +43,13 @@ const enslave = (id, amount) => {
   };
 };
 
+const newBuilding = (id) => {
+  return {
+    type: 'PLACE_NEW_BUILDING',
+    id
+  };
+};
+
 const gathering = id => {
   return {
     type: 'PLACE_GATHERING',
@@ -57,6 +64,13 @@ const enslaving = id => {
   };
 };
 
+const building = id => {
+  return {
+    type: 'PLACE_BUILDING',
+    id
+  };
+};
+
 const generate = terrainId => {
   const [terrain] = store.getState().terrains.filter( t => t.id === terrainId );
   store.dispatch(create(chance.place(terrain)));
@@ -67,8 +81,10 @@ module.exports = {
     create,
     gathering,
     enslaving,
+    building,
     gather,
-    enslave
+    enslave,
+    newBuilding
   }, store.dispatch),
   generate
 };

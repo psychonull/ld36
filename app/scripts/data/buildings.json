@@ -1,0 +1,54 @@
+[{
+   "name": "pyramid",
+   "resources": {
+     "sand": 550,
+     "water": 200,
+     "stone": 410
+   },
+   "time": 1500
+ },
+ {
+   "name": "sphinx",
+   "resources": {
+     "sand": 850,
+     "water": 300,
+     "stone": 210
+   },
+   "time": 2600
+ },
+ {
+   "name": "epic pyramid",
+   "resources": {
+     "sand": 1200,
+     "water": 700,
+     "stone": 700
+   },
+   "time": 4500
+ },
+ {
+   "name": "obelisk",
+   "resources": {
+     "sand": 250,
+     "water": 500,
+     "stone": 800
+   },
+   "time": 1200
+ },
+ {
+   "name": "temple",
+   "resources": {
+     "sand": 666,
+     "water": 666,
+     "stone": 666
+   },
+   "time": 3000
+ },
+ {
+   "name": "rare sphinx",
+   "resources": {
+     "sand": 456,
+     "water": 1000,
+     "stone": 400
+   },
+   "time": 5000
+ }]

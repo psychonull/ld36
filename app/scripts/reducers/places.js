@@ -8,9 +8,11 @@ const initialPlace = {
     stone: 0
   },
   people: 0,
+  buildings: 0,
 
   gathering: false,
-  enslaving: false
+  enslaving: false,
+  building: false
 };
 
 const place = (state = initialPlace, action) => {
@@ -35,6 +37,10 @@ const place = (state = initialPlace, action) => {
       if (state.id !== action.id) return state;
       return {...state, enslaving: true };
     }
+    case 'PLACE_BUILDING': {
+      if (state.id !== action.id) return state;
+      return {...state, building: true };
+    }
     case 'PLACE_GATHER': {
       if (state.id !== action.id) return state;
       return {...state,
@@ -50,6 +56,12 @@ const place = (state = initialPlace, action) => {
         enslaving: false,
         people: state.people - action.amount};
     }
+    case 'PLACE_NEW_BUILDING': {
+      if (state.id !== action.id) return state;
+      return {...state,
+        building: false,
+        buildings: state.buildings + 1};
+    }
   }
 
   return state;
@@ -62,8 +74,10 @@ export default function(state = [], action) {
     }
     case 'PLACE_GATHERING':
     case 'PLACE_ENSLAVING':
+    case 'PLACE_BUILDING':
     case 'PLACE_ENSLAVE':
-    case 'PLACE_GATHER': {
+    case 'PLACE_GATHER':
+    case 'PLACE_NEW_BUILDING': {
       return state.map( p => place(p, action));
     }
   }

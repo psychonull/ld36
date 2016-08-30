@@ -11,8 +11,7 @@ import { CATEGORY } from '../../constants';
 const commands = {
   current: current(CATEGORY.ENSLAVE),
   send: send(CATEGORY.ENSLAVE),
-  available: places,
-  send
+  available: places
 };
 
 store.subscribe(() => onStoreChange(CATEGORY.ENSLAVE));

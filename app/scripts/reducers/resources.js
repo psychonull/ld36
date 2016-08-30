@@ -1,7 +1,7 @@
 const initialState = {
-  sand: 2,
-  water: 5,
-  stone: 3
+  sand: 500,
+  water: 500,
+  stone: 500
 };
 
 export default function(state = initialState, action) {

@@ -19,14 +19,14 @@ export default function(category){
       switch(category){
 
         case CATEGORY.GATHER:
-        case CATEGORY.ENSLAVE: {
+        case CATEGORY.ENSLAVE:
+        case CATEGORY.BUILD: {
           currents.map( c => {
             let [place] = state.places.filter( t => t.id === c.place )
             return { ...c, place };
           })
           .forEach( e => {
             this.echo(`#${e.id} - started ${formatYear(e.sentAt)}:`);
-            //this.echo(`   Risk: ${getRisk(e.terrain.risk)}  Estimate: ${e.terrain.estimates.minTime}-${e.terrain.estimates.maxTime} years`);
             this.echo(`   Slaves sent: ${e.slavesSent}  Slaves alive: ${e.slavesAlive}`);
           });
           break;

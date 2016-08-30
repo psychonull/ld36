@@ -43,11 +43,20 @@ const looseStone = amount => {
   };
 }
 
+const paid = resources => {
+  return dispatch => {
+    dispatch(looseSand(resources.sand));
+    dispatch(looseWater(resources.water));
+    dispatch(looseStone(resources.stone));
+  };
+}
+
 export default bindActionCreators({
   receiveSand,
   receiveWater,
   receiveStone,
   looseSand,
   looseWater,
-  looseStone
+  looseStone,
+  paid
 }, store.dispatch);

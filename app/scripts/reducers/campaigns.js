@@ -6,6 +6,7 @@ const initialCampaign = {
 
   //terrain: '', // for explorations
   //place: '', // for gather, enslave, build
+  //building: // for build
 
   slavesSent: 0,
   slavesAlive: 0,
@@ -52,6 +53,14 @@ const campaign = (state = initialCampaign, action) => {
         place: action.place
       };
     }
+    case 'BUILD_START': {
+      return {...state,
+        ...getCampaign(),
+        category: CATEGORY.BUILD,
+        place: action.place,
+        building: action.building
+      };
+    }
     case 'CAMPAIGNS_DEATH': {
       if (state.id !== action.id) return state;
       return {...state, slavesAlive: state.slavesAlive-1 };
@@ -73,7 +82,8 @@ export default function(state = [], action) {
   switch(action.type) {
     case 'EXPLORATION_START':
     case 'GATHER_START':
-    case 'ENSLAVE_START': {
+    case 'ENSLAVE_START':
+    case 'BUILD_START': {
       return [...state, campaign(undefined, action)];
     }
     case 'CAMPAIGNS_DEATH':

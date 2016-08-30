@@ -1,6 +1,7 @@
 import { bindActionCreators } from 'redux';
 import store from '../store';
 import { getRndSlaves, getRndSlavesAny } from '../utils/toss';
+import buildings from '../data/buildings';
 
 import { exploring, markExplored } from './terrains';
 import slaves, { leave as slavesLeave, comeBack as slavesComeBack } from './slaves';
@@ -41,6 +42,18 @@ const startEnslave = (place, slaves, startTime, end) => {
     type: 'ENSLAVE_START',
     id: enslavesIds++,
     place,
+    slaves,
+    start: startTime,
+    end
+  };
+};
+
+const startBuild = (place, build, slaves, startTime, end) => {
+  return {
+    type: 'BUILD_START',
+    id: buildsIds++,
+    place,
+    build,
     slaves,
     start: startTime,
     end
@@ -92,10 +105,10 @@ const getTimeToCompleteEnslaving = place => { //TODO: build from place and popul
   });
 };
 
-const getTimeToCompleteBuild = building => { //TODO: build from building size
+const getTimeToCompleteBuild = (building, slaves) => {
   return chance.integer({
     min: 1,
-    max: 8
+    max: (building.time / slaves) / 200
   });
 };
 
@@ -147,6 +160,23 @@ const enslave = (placeId, slaves, startTime) => {
   };
 };
 
+const build = (placeId, buildId, slaves, startTime) => {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    const [place] = state.places.filter( p => p.id === placeId);
+
+    if (place.building) return; // already building
+
+    const end = startTime + getTimeToCompleteBuild(buildings[buildId], slaves);
+
+    slavesLeave(slaves);
+    dispatch(startBuild(placeId, buildId, getRndSlaves(state.slaves, slaves), startTime, end));
+    resources.paid(buildings[buildId].resources);
+    places.building(placeId);
+  };
+};
+
 const finish = (id, category) => {
   // This is an Actor (used from redux-thunk to disallow double fires of same action)
   // cause on first action could change the store before it finishes entirely.
@@ -183,6 +213,11 @@ const finish = (id, category) => {
         slaves.receive(rndSlaves.childs, rndSlaves.adults, rndSlaves.ageds);
         break;
       }
+      case CATEGORY.BUILD: {
+        places.newBuilding(camp.place, camp.building);
+        // Already paid with resources
+        break;
+      }
     }
   };
 
@@ -194,5 +229,6 @@ module.exports = bindActionCreators({
   finish,
   explore,
   gather,
-  enslave
+  enslave,
+  build
 }, store.dispatch);

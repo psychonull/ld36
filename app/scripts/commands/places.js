@@ -11,8 +11,9 @@ const getTable = (places) => {
     AsciiTable.align(AsciiTable.CENTER, 'Water lt', 8),
     AsciiTable.align(AsciiTable.CENTER, 'Stone kg', 8),
     AsciiTable.align(AsciiTable.CENTER, 'People', 8),
-    AsciiTable.align(AsciiTable.CENTER, 'Gathering', 9),
-    AsciiTable.align(AsciiTable.CENTER, 'Enslaving', 9)
+    AsciiTable.align(AsciiTable.CENTER, 'Gathering', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'Enslaving', 8),
+    AsciiTable.align(AsciiTable.CENTER, 'Building', 8)
   );
 
   places.forEach((p, i) => {
@@ -23,7 +24,8 @@ const getTable = (places) => {
       p.resources.stone,
       p.people,
       p.gathering ? 'YES' : 'NO',
-      p.enslaving ? 'YES' : 'NO'
+      p.enslaving ? 'YES' : 'NO',
+      p.building ? 'YES' : 'NO'
     )
     .setAlignCenter(0)
     .setAlignRight(1)
@@ -31,7 +33,8 @@ const getTable = (places) => {
     .setAlignRight(3)
     .setAlignRight(4)
     .setAlignCenter(5)
-    .setAlignCenter(6);
+    .setAlignCenter(6)
+    .setAlignCenter(7);
   });
 
   return table.toString();
