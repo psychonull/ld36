@@ -111,8 +111,8 @@ const getTimeToCompleteEnslaving = (place, slaves) => {
 
 const getTimeToCompleteBuild = (building, slaves) => {
   return chance.integer({
-    min: 1,
-    max: (building.time / slaves) / 200
+    min: building.time / slaves,
+    max: building.time / slaves * 3
   });
 };
 
