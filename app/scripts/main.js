@@ -47,8 +47,6 @@ $(function() {
     resizeEffect();
   });
 
-  interjection.show();
+  interjection.show(() => window.Time.start());
 
-  //TODO: on hide interjection
-  window.Time.start();
 });

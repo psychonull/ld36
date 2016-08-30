@@ -126,6 +126,7 @@ export default function(category){
       }
 
       this.echo(`${slavesp} slaves sent to ${leg}`);
+      this.exec('current');
     }
   }
 }
