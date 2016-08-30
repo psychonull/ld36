@@ -28,7 +28,6 @@ const commands = {
 
 const hidden = [
   'stats',
-  'vel',
   'born',
   'kill',
   'travel',

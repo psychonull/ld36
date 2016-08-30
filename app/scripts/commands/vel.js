@@ -2,7 +2,7 @@
 import timeActions from '../actions/time';
 
 export default {
-  help: 'use vel [SECONDS] to change velocity of time or vel RESET',
+  help: 'set the amount of seconds that makes 1 year pass (the greater the slower - default 10). Usage: vel [SECONDS | RESET]',
   run: function(seconds) {
     if (seconds.toLowerCase() === 'reset'){
       window.Time.resetVel();
