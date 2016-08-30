@@ -78,17 +78,21 @@ const getTimeToCompleteExploration = terrain => {
   });
 };
 
-const getTimeToCompleteGather = place => { //TODO: build from place area km2
+const getTimeToCompleteGather = (place, slaves) => {
+  var totalResources = place.resources.sand +
+    place.resources.water +
+    place.resources.stone;
+
   return chance.integer({
-    min: 1,
-    max: 8
+    min: Math.round((totalResources * 0.2) / Math.min(slaves, totalResources)),
+    max: Math.round((totalResources * 0.6) / Math.min(slaves, totalResources))
   });
 };
 
-const getTimeToCompleteEnslaving = place => { //TODO: build from place and population
+const getTimeToCompleteEnslaving = (place, slaves) => {
   return chance.integer({
-    min: 1,
-    max: 8
+    min: Math.ceil(place.people / slaves * 0.2),
+    max: Math.ceil(place.people / slaves * 0.2) * 3
   });
 };
 
@@ -123,7 +127,7 @@ const gather = (placeId, slaves, startTime) => {
 
     if (place.gathering) return; // already gathering
 
-    const end = startTime + getTimeToCompleteGather(place);
+    const end = startTime + getTimeToCompleteGather(place, slaves);
 
     slavesLeave(slaves);
     dispatch(startGather(placeId, getRndSlaves(state.slaves, slaves), startTime, end));
@@ -139,7 +143,7 @@ const enslave = (placeId, slaves, startTime) => {
 
     if (place.enslaving) return; // already enslaving
 
-    const end = startTime + getTimeToCompleteEnslaving(place);
+    const end = startTime + getTimeToCompleteEnslaving(place, slaves);
 
     slavesLeave(slaves);
     dispatch(startEnslave(placeId, getRndSlaves(state.slaves, slaves), startTime, end));
